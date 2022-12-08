@@ -101,6 +101,7 @@ def task1():
         else:
             print(Fore.RED+'[*] OTP test fail [1]')
 
+            
 # task 2
 
 def task2():
